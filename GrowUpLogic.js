@@ -69,8 +69,14 @@ radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3);
             end = new Date().getTime();
             totalTime = (end - start) / 1000;
             totalTime = Number((totalTime).toFixed(decimalPointsToRoundTo));
-            scoreBoard.innerHTML = '  Stage Number : ' + stageNumber + '<br/>  Points : ' + points + '<br/>  Points Required : ' + pointsRequired + '<br/>  Time Spent Last : ' + totalTime;
+            remainingTimeForGame=Number((maximumTimeForStage - totalTime).toFixed(decimalPointsToRoundTo));
+            
+            scoreBoard.innerHTML = '  Stage Number : ' + stageNumber + '<br/>  Points : ' + points + '<br/>  Points Required : ' + pointsRequired + '<br/>  Time Played : ' + totalTime+"<br/>  Time Remaining : "+remainingTimeForGame;
 
+
+if(remainingTimeForGame<=0){
+    gameOverCleanup("Maximum time and game over! Click OK to restart! Maximum time played " + totalTime + " Seconds");
+}
             for (var j = 0; j < particle.length; j++) {
 
                 var par1 = particle[j];
@@ -80,23 +86,8 @@ radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3);
                 if (centerDistance <= par1.radius + radiusSmall) {
 
                      if(par1.radius>radiusSmall){
-                    /*canvasContext.fillStyle = "rgba(0,23,34,0.5)";
-                    canvasContext.fillRect(0, 0, can.width, can.height);
-                    canvasContext.strokeStyle = "rgba(23,134,133,1)";
-                    canvasContext.strokeRect(can.width/2, can.height/3, 200, 100);
-                    canvasContext.fillStyle = "rgba(255,0,0,1)";
-            */
-            summaryHolderForGameDuration.push({
-                            'points': points,
-                            'timeSpent': totalTime,
-                            'stage': stageNumber
-                        });
-
-               displayInstructionsViewWithInstructions("Game Over Score is! Click to restart! Maximum time played " + totalTime + " Seconds"  ,1);
-                    
-                    
-
-               clearInterval(intervalGame);
+                 
+           gameOverCleanup("Game Over Score is! Click ok to restart! Maximum time played " + totalTime + " Seconds");
                
         }
         else{
@@ -111,7 +102,7 @@ if(points>=pointsRequired){
     
 summaryHolderForGameDuration.push({
                             'points': points,
-                            'timeSpent': totalTime,
+                            'timePlayed': totalTime,
                             'stage': stageNumber
                         });
 

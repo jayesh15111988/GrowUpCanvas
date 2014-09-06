@@ -7,6 +7,7 @@ var scoreBoard = $("#scoreBoard")[0];
 //var horizontalLineFirst = $("#horizontalLineFirst")[0];
 var horizontalLineSecond = $("#horizontalLineSecond")[0];
 var horizontalLineThird = $("#horizontalLineThird")[0];
+var horizontalLineFourth = $("#horizontalLineFourth")[0];
 
 var instructionViewWidth = screen.width / 2;
 var instructionViewHeight = screen.height / 2;
@@ -43,10 +44,11 @@ scoreBoard.style.left = scoreBoardLeftDistance + 'px';
 
 horizontalLineFirst.style.left = scoreBoardLeftDistance + 10 + 'px';
 horizontalLineSecond.style.left = horizontalLineFirst.style.left;
-horizontalLineThird.style.left = horizontalLineSecond.style.left;
+horizontalLineThird.style.left = horizontalLineFirst.style.left;
+horizontalLineFourth.style.left = horizontalLineFirst.style.left;
 
 //Initial state we will show all initial data
-scoreBoard.innerHTML = "  Stage Number : 1<br/>  Points : 0<br/>  Points Required : "+pointsRequired+"<br/>  Time Spent Last : 0 Seconds";
+scoreBoard.innerHTML = "  Stage Number : 1<br/>  Points : 0<br/>  Points Required : "+pointsRequired+"<br/>  Time Played : 0 Seconds <br/>"+"  Time Remaining : "+maximumTimeForStage;
 
 function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
 
@@ -60,7 +62,7 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
     if (isGameFinished) {
 
         
-        var timeSpent = 0;
+        var timePlayed = 0;
         reductionFactor = 0;
         var stagesCompleted = Object.keys(summaryHolderForGameDuration).length - 1;
         var individualStageStatistics = [];
@@ -73,8 +75,8 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
         for (var index in summaryHolderForGameDuration) {
             individualStageStatistics = summaryHolderForGameDuration[index];
             totalPoints += individualStageStatistics['points'];
-            timeSpent += individualStageStatistics['timeSpent'];
-            HTMLTableString += '<tr><td>' + individualStageStatistics['stage'] + '</td><td>' + individualStageStatistics['points'] + '</td><td>' + individualStageStatistics['timeSpent'] + '</td></tr>';
+            timePlayed += individualStageStatistics['timePlayed'];
+            HTMLTableString += '<tr><td>' + individualStageStatistics['stage'] + '</td><td>' + individualStageStatistics['points'] + '</td><td>' + individualStageStatistics['timePlayed'] + '</td></tr>';
         }
 
         HTMLTableString += '</table>';
@@ -82,17 +84,17 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
 
         //Rounding off score and time to two decimal points
         totalPoints = Number((totalPoints).toFixed(decimalPointsToRoundTo));
-        timeSpent = Number((timeSpent).toFixed(decimalPointsToRoundTo));
+        timePlayed = Number((timePlayed).toFixed(decimalPointsToRoundTo));
 
         //Game is over - Show individual level as well as overall statistics for game
-        actualGameInstructionsDiv.innerHTML = "Sorry, your Game is Over. Total score reached so far upto this level is : " + totalPoints + "  Maximum total time this game played is : " + timeSpent + " Seconds<br/><br/>";
+        actualGameInstructionsDiv.innerHTML = instructions+ "  Total score reached so far upto this level is : " + totalPoints + " <br/><br/>";
         actualGameInstructionsDiv.innerHTML += HTMLTableString;
 
     initializeAllVariables();
 
         //actualGameInstructionsDiv.innerHTML=instructions;
         //Reset scoreboard once game is Over - Show all default values of points and stages
-        scoreBoard.innerHTML = "  Stage Number : 1<br/>  Points : 0<br/>  Points Required : "+pointsRequired+"<br/>  Time Spent Last : 0 Seconds";
+        scoreBoard.innerHTML = "  Stage Number : 1<br/>  Points : 0<br/>  Points Required : "+pointsRequired+"<br/>  Time Played : 0 Seconds<br/>"+"  Time Remaining : "+maximumTimeForStage;
 
         summaryHolderForGameDuration.length = 0;
 

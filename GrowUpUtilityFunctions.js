@@ -8,6 +8,7 @@ function initializeAllVariables()
     stageNumber=1;
     particleNumbers=10;
     points=0;
+    maximumTimeForStage=20;
 
 }
 
@@ -15,8 +16,23 @@ function updateGameParametersForNextStage(){
 	 pointsRequired+=pointsRequiredToGoToNextStepIncrement;
     maximumBallRadius+=maximumBallRadiusIncrement;
     particleNumbers+=particleNumbersIncrement;
+    maximumTimeForStage+=maximumTimeForStageIncrement;
     stageNumber+=1;
     points=0;
+}
+
+function gameOverCleanup(gameOverReason){
+	 summaryHolderForGameDuration.push({
+                            'points': points,
+                            'timeSpent': totalTime,
+                            'stage': stageNumber
+                        });
+
+               displayInstructionsViewWithInstructions(gameOverReason  ,1);
+                    
+                    
+
+               clearInterval(intervalGame);
 }
 
 function incrementPointsAfterParticleConsumption(collidingParticleRadius){

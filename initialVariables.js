@@ -25,3 +25,6 @@ var can = document.getElementById('growUpCanvas');
  var radiusSmall;
  var totalTime;
  var end;
+ var maximumTimeForStage=20;
+ var maximumTimeForStageIncrement=20;
+ var remainingTimeForGame=100;

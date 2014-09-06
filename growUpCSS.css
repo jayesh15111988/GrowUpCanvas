@@ -17,9 +17,9 @@
 #scoreBoard {
     position: absolute;
     z-index: :100;
-    top: 0px;
+    top: 10px;
     width: 250px;
-    height: 130px;
+    height: 160px;
     font-size: 20px;
     background-color: rgba(240,123,22,0.6);
     border: 2px solid rgba(235,215,90,1);
@@ -35,15 +35,19 @@ div.horizontalLine {
 }
 
 #horizontalLineFirst {
-    top: 31px;
+    top: 41px;
 }
 
 #horizontalLineSecond {
-    top: 62px;
+    top: 72px;
 }
 
 #horizontalLineThird {
-    top: 93px;
+    top: 103px;
+}
+
+#horizontalLineFourth{
+    top:134px;
 }
 
 #expandMeCanvas {
