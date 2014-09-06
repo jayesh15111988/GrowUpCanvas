@@ -9,12 +9,19 @@ var can = document.getElementById('growUpCanvas');
  var ballsVelocityFactorIncrementParameter=0.2;
  var movingBallsOpaciity=0.8;
  var frameRate=33;
- var maximumBallRadius=5;
-var maximumBallRadiusIncrement=10;
+ var maximumBallRadius=10;
+ var maximumBallRadiusIncrement=10;
 
  var decimalPointsToRoundTo=2;
  var points = 0;
+ var totalPoints=0;
  //Minimum points required to move to the next level
- var pointsRequired = 3;
- var pointsRequiredToGoToNextStepIncrement=3;
+ var pointsRequired = 10;
+ var pointsRequiredToGoToNextStepIncrement=20;
  var summaryHolderForGameDuration=[];
+
+ var radiusToPointsConversionDivisionFactor=1;
+ var pointsToRadiusConversionFactor=3;
+ var radiusSmall;
+ var totalTime;
+ var end;

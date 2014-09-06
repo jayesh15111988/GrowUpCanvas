@@ -45,7 +45,7 @@ console.log("This is canvas object "+can);
 
         this.addEventListener('mousemove', mouse_monitor);
 
-var radiusSmall=15*(stageNumber/3); 
+radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3); 
 
 
 
@@ -66,8 +66,8 @@ var radiusSmall=15*(stageNumber/3);
 
             canvasContext.closePath();
             canvasContext.stroke();
-            var end = new Date().getTime();
-            var totalTime = (end - start) / 1000;
+            end = new Date().getTime();
+            totalTime = (end - start) / 1000;
             totalTime = Number((totalTime).toFixed(decimalPointsToRoundTo));
             scoreBoard.innerHTML = '  Stage Number : ' + stageNumber + '<br/>  Points : ' + points + '<br/>  Points Required : ' + pointsRequired + '<br/>  Time Spent Last : ' + totalTime;
 
@@ -80,7 +80,7 @@ var radiusSmall=15*(stageNumber/3);
                 if (centerDistance <= par1.radius + radiusSmall) {
 
                      if(par1.radius>radiusSmall){
-    canvasContext.fillStyle = "rgba(0,23,34,0.5)";
+                    canvasContext.fillStyle = "rgba(0,23,34,0.5)";
 
                     canvasContext.fillRect(0, 0, can.width, can.height);
 
@@ -90,13 +90,13 @@ var radiusSmall=15*(stageNumber/3);
 
                     canvasContext.fillStyle = "rgba(255,0,0,1)";
             
-            
-            
-         
-               var end = new Date().getTime();
-               var totalTime=(end-start)/1000;
+            summaryHolderForGameDuration.push({
+                            'points': points,
+                            'timeSpent': totalTime,
+                            'stage': stageNumber
+                        });
 
-               displayInstructionsViewWithInstructions("Game Over Score is! Click to restart! Maximum time played" + totalTime + " Seconds"  ,1);
+               displayInstructionsViewWithInstructions("Game Over Score is! Click to restart! Maximum time played " + totalTime + " Seconds"  ,1);
                     
                     
 
@@ -105,16 +105,29 @@ var radiusSmall=15*(stageNumber/3);
         }
         else{
             
-          radiusSmall+=par1.radius/10; 
-        points++;
-           particle.splice(j, 1);
+          points+=(par1.radius/radiusToPointsConversionDivisionFactor);
+          radiusSmall+=(points/pointsToRadiusConversionFactor); 
+          points = Number((points).toFixed(decimalPointsToRoundTo));
+
+          particle.splice(j, 1);
            
+        console.log("New points are "+points);   
 if(points>=pointsRequired){
-    console.log("Volia next setp");
+    
+summaryHolderForGameDuration.push({
+                            'points': points,
+                            'timeSpent': totalTime,
+                            'stage': stageNumber
+                        });
+
+
     pointsRequired+=pointsRequiredToGoToNextStepIncrement;
     maximumBallRadius+=maximumBallRadiusIncrement;
+particleNumbers+=particleNumbersIncrement;
+totalPoints+=points;
     stageNumber+=1;
-displayInstructionsViewWithInstructions("going to stage "+stageNumber,0);
+    points=0;
+displayInstructionsViewWithInstructions("Congrats, you successfully cleared this stage. Now going to stage "+stageNumber+"<br/>Best of Luck!",0);
 
 
 }

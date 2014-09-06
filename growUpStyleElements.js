@@ -59,13 +59,17 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
 
     if (isGameFinished) {
 
-        var totalPoints = 0;
+        
         var timeSpent = 0;
         reductionFactor = 0;
         var stagesCompleted = Object.keys(summaryHolderForGameDuration).length - 1;
         var individualStageStatistics = [];
         var HTMLTableString = '<table border="1" align="center" style="width:' + mainInstructionsView.style.width + '"><tr><td>Stage</td><td>Points</td><td>Total time</td></tr>';
-
+        
+        //Overall points gathered by the user over course of time
+            
+        totalPoints=0;
+        
         for (var index in summaryHolderForGameDuration) {
             individualStageStatistics = summaryHolderForGameDuration[index];
             totalPoints += individualStageStatistics['points'];
@@ -84,15 +88,17 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
         actualGameInstructionsDiv.innerHTML = "Sorry, your Game is Over. Total score reached so far upto this level is : " + totalPoints + "  Maximum total time this game played is : " + timeSpent + " Seconds<br/><br/>";
         actualGameInstructionsDiv.innerHTML += HTMLTableString;
 
+    //Initialize all variables once current game is over
 
-    pointsRequired=3;
-    maximumBallRadius=3;
+    totalPoints = 0;
+    pointsRequired=10;
+    maximumBallRadius=10;
     stageNumber=1;
     particleNumbers=10;
     points=0;
 
 
-        actualGameInstructionsDiv.innerHTML=instructions;
+        //actualGameInstructionsDiv.innerHTML=instructions;
         //Reset scoreboard once game is Over - Show all default values of points and stages
         scoreBoard.innerHTML = "  Stage Number : 1<br/>  Points : 0<br/>  Points Required : "+pointsRequired+"<br/>  Time Spent Last : 0 Seconds";
 
