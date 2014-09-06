@@ -80,16 +80,12 @@ radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3);
                 if (centerDistance <= par1.radius + radiusSmall) {
 
                      if(par1.radius>radiusSmall){
-                    canvasContext.fillStyle = "rgba(0,23,34,0.5)";
-
+                    /*canvasContext.fillStyle = "rgba(0,23,34,0.5)";
                     canvasContext.fillRect(0, 0, can.width, can.height);
-
                     canvasContext.strokeStyle = "rgba(23,134,133,1)";
                     canvasContext.strokeRect(can.width/2, can.height/3, 200, 100);
-
-
                     canvasContext.fillStyle = "rgba(255,0,0,1)";
-            
+            */
             summaryHolderForGameDuration.push({
                             'points': points,
                             'timeSpent': totalTime,
@@ -105,9 +101,8 @@ radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3);
         }
         else{
             
-          points+=(par1.radius/radiusToPointsConversionDivisionFactor);
-          radiusSmall+=(points/pointsToRadiusConversionFactor); 
-          points = Number((points).toFixed(decimalPointsToRoundTo));
+          incrementPointsAfterParticleConsumption(par1.radius);
+          
 
           particle.splice(j, 1);
            
@@ -121,12 +116,8 @@ summaryHolderForGameDuration.push({
                         });
 
 
-    pointsRequired+=pointsRequiredToGoToNextStepIncrement;
-    maximumBallRadius+=maximumBallRadiusIncrement;
-particleNumbers+=particleNumbersIncrement;
-totalPoints+=points;
-    stageNumber+=1;
-    points=0;
+   updateGameParametersForNextStage();
+
 displayInstructionsViewWithInstructions("Congrats, you successfully cleared this stage. Now going to stage "+stageNumber+"<br/>Best of Luck!",0);
 
 
@@ -200,11 +191,4 @@ displayInstructionsViewWithInstructions("Congrats, you successfully cleared this
         intervalGame = setInterval(drawFrameOnScreen, (1 / frameRate) * 1000);
     }
 
-    function getNewColorWithRandomRGBValues() {
-
-        var r = Math.random() * 255 >> 0;
-        var g = Math.random() * 255 >> 0;
-        var b = Math.random() * 255 >> 0;
-        return "rgba(" + r + "," + g + "," + b + ","+movingBallsOpaciity+")";
-
-    }
+    

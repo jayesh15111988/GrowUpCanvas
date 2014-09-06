@@ -67,7 +67,7 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
         var HTMLTableString = '<table border="1" align="center" style="width:' + mainInstructionsView.style.width + '"><tr><td>Stage</td><td>Points</td><td>Total time</td></tr>';
         
         //Overall points gathered by the user over course of time
-            
+
         totalPoints=0;
         
         for (var index in summaryHolderForGameDuration) {
@@ -88,15 +88,7 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
         actualGameInstructionsDiv.innerHTML = "Sorry, your Game is Over. Total score reached so far upto this level is : " + totalPoints + "  Maximum total time this game played is : " + timeSpent + " Seconds<br/><br/>";
         actualGameInstructionsDiv.innerHTML += HTMLTableString;
 
-    //Initialize all variables once current game is over
-
-    totalPoints = 0;
-    pointsRequired=10;
-    maximumBallRadius=10;
-    stageNumber=1;
-    particleNumbers=10;
-    points=0;
-
+    initializeAllVariables();
 
         //actualGameInstructionsDiv.innerHTML=instructions;
         //Reset scoreboard once game is Over - Show all default values of points and stages
@@ -115,13 +107,7 @@ function displayInstructionsViewWithInstructions(instructions, isGameFinished) {
 
 }
 
-function fillColorWithDefaultLightGreen() {
-    canvasContext.fillStyle = "rgba(255,255,255,1.0)";
-    canvasContext.fillRect(0, 0, can.width, can.height);
-    canvasContext.fillStyle = "rgba(120,190,125,0.5)";
-    canvasContext.fillRect(0, 0, can.width, can.height);
 
-}
 
 function hideInstructionsView() {
     mainInstructionsView.style.display = 'none';
