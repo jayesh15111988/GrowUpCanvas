@@ -1,8 +1,5 @@
     $(document).ready(function() {
 
-       
-
-console.log("This is canvas object "+can);
         if (can.width < window.innerWidth) {
             can.width = window.innerWidth ||
                 document.documentElement.clientWidth ||
@@ -18,7 +15,6 @@ console.log("This is canvas object "+can);
         canvasContext.fillStyle = "rgba(120,190,125,0.5)";
         canvasContext.fillRect(0, 0, can.width, can.height);
 
-        
         displayInstructionsViewWithInstructions("Click to start the Game. Go and eat small particles and stay away from large ones.", 0);
 
     })
@@ -45,14 +41,12 @@ console.log("This is canvas object "+can);
 
         this.addEventListener('mousemove', mouse_monitor);
 
-radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3); 
-
-
+        radiusSmall = maximumBallRadius / (1 + stageNumber); //15*(stageNumber/3); 
 
         function drawFrameOnScreen() {
 
             canvasContext.globalCompositeOperation = "source-over";
-            
+
             //This is a Canvas background
             canvasContext.fillStyle = "rgba(130,130,130,1)";
             canvasContext.fillRect(0, 0, can.width, can.height);
@@ -62,61 +56,42 @@ radiusSmall=maximumBallRadius/(1+stageNumber);//15*(stageNumber/3);
             canvasContext.beginPath();
             canvasContext.arc(mx, my, radiusSmall, 0, 2 * Math.PI, false);
 
-           
-
             canvasContext.closePath();
             canvasContext.stroke();
             end = new Date().getTime();
             totalTime = (end - start) / 1000;
             totalTime = Number((totalTime).toFixed(decimalPointsToRoundTo));
-            remainingTimeForGame=Number((maximumTimeForStage - totalTime).toFixed(decimalPointsToRoundTo));
-            
-            scoreBoard.innerHTML = '  Stage Number : ' + stageNumber + '<br/>  Points : ' + points + '<br/>  Points Required : ' + pointsRequired + '<br/>  Time Played : ' + totalTime+"<br/>  Time Remaining : "+remainingTimeForGame;
+            remainingTimeForGame = Number((maximumTimeForStage - totalTime).toFixed(decimalPointsToRoundTo));
 
+            scoreBoard.innerHTML = '  Stage Number : ' + stageNumber + '<br/>  Points : ' + points + '<br/>  Points Required : ' + pointsRequired + '<br/>  Time Played : ' + totalTime + "<br/>  Time Remaining : " + remainingTimeForGame;
 
-if(remainingTimeForGame<=0){
-    gameOverCleanup("Maximum time and game over! Click OK to restart! Maximum time played " + totalTime + " Seconds");
-}
+            if (remainingTimeForGame <= 0) {
+                gameOverCleanup("Maximum time and game over! Click OK to restart! Maximum time played " + totalTime + " Seconds");
+            }
             for (var j = 0; j < particle.length; j++) {
 
                 var par1 = particle[j];
 
-                var centerDistance = Math.sqrt(Math.pow((par1.x - mx), 2) + Math.pow((par1.y - my), 2));
+                if (didParticleIntersectWithParticle(par1)) {
 
-                if (centerDistance <= par1.radius + radiusSmall) {
+                    if (par1.radius > radiusSmall) {
 
-                     if(par1.radius>radiusSmall){
-                 
-           gameOverCleanup("Game Over Score is! Click ok to restart! Maximum time played " + totalTime + " Seconds");
-               
-        }
-        else{
-            
-          incrementPointsAfterParticleConsumption(par1.radius);
-          
+                        gameOverCleanup("Game Over Score is! Click ok to restart! Maximum time played " + totalTime + " Seconds");
 
-          particle.splice(j, 1);
-           
-        console.log("New points are "+points);   
-if(points>=pointsRequired){
-    
-summaryHolderForGameDuration.push({
-                            'points': points,
-                            'timePlayed': totalTime,
-                            'stage': stageNumber
-                        });
+                    } else {
 
+                        incrementPointsAfterParticleConsumption(par1.radius);
 
-   updateGameParametersForNextStage();
+                        particle.splice(j, 1);
 
-displayInstructionsViewWithInstructions("Congrats, you successfully cleared this stage. Now going to stage "+stageNumber+"<br/>Best of Luck!",0);
+                        if (points >= pointsRequired) {
 
+                            updateGameParametersForNextStage();
 
-}
+                        }
 
+                    }
 
-        }
-       
                 }
 
             }
@@ -157,7 +132,6 @@ displayInstructionsViewWithInstructions("Congrats, you successfully cleared this
 
             var newVelocityIncrementor = stageNumber * ballsVelocityFactorIncrementParameter;
 
-            
             this.vx = (Math.random() * 20 * newVelocityIncrementor);
             this.vy = (Math.random() * 20 * newVelocityIncrementor);
 
@@ -181,5 +155,3 @@ displayInstructionsViewWithInstructions("Congrats, you successfully cleared this
 
         intervalGame = setInterval(drawFrameOnScreen, (1 / frameRate) * 1000);
     }
-
-    
