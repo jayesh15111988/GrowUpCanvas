@@ -8,4 +8,4 @@ Game finishes when either player touches to the particle sized more than it, or 
 
 Link to interactive online demo of this game:
 
-http://www.jayeshkawli.com/jayeshkawli/canvas/GrowUp/GrowUp.html
+http://www.jayeshkawli.com/Canvas/GrowUp/GrowUp.html
